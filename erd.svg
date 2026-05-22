@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 800" width="1100" height="800">
+  <defs>
+    <style>
+      .table { fill: #FFFFFF; stroke: #1F3A5F; stroke-width: 2; }
+      .table-header { fill: #1F3A5F; }
+      .table-name { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #FFFFFF; text-anchor: middle; }
+      .col-pk { font-family: Consolas, monospace; font-size: 11px; fill: #C77B00; font-weight: bold; }
+      .col-fk { font-family: Consolas, monospace; font-size: 11px; fill: #2E7D32; font-weight: bold; }
+      .col { font-family: Consolas, monospace; font-size: 11px; fill: #222; }
+      .rel { stroke: #1F3A5F; stroke-width: 1.5; fill: none; }
+      .rel-label-bg { fill: #FFFFFF; }
+      .rel-label { font-family: Arial, sans-serif; font-size: 10px; fill: #1F3A5F; font-weight: bold; text-anchor: middle; }
+      .ai-table { fill: #E8F5E9; stroke: #2E7D32; }
+    </style>
+  </defs>
+
+  <text x="550" y="30" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#1F3A5F">ShopEase — Entity Relationship Diagram</text>
+
+  <g>
+    <rect class="table" x="40" y="80" width="220" height="160"/>
+    <rect class="table-header" x="40" y="80" width="220" height="26"/>
+    <text x="150" y="98" class="table-name">users</text>
+    <text x="50" y="125" class="col-pk">PK  user_id           INT</text>
+    <text x="50" y="143" class="col">name              VARCHAR</text>
+    <text x="50" y="161" class="col">email (unique)    VARCHAR</text>
+    <text x="50" y="179" class="col">password_hash     VARCHAR</text>
+    <text x="50" y="197" class="col">role              ENUM</text>
+    <text x="50" y="215" class="col">created_at        TIMESTAMP</text>
+  </g>
+
+  <g>
+    <rect class="table" x="440" y="80" width="220" height="180"/>
+    <rect class="table-header" x="440" y="80" width="220" height="26"/>
+    <text x="550" y="98" class="table-name">products</text>
+    <text x="450" y="125" class="col-pk">PK  product_id        INT</text>
+    <text x="450" y="143" class="col">name              VARCHAR</text>
+    <text x="450" y="161" class="col">description       TEXT</text>
+    <text x="450" y="179" class="col">price             DECIMAL</text>
+    <text x="450" y="197" class="col">stock_qty         INT</text>
+    <text x="450" y="215" class="col">category          VARCHAR</text>
+    <text x="450" y="233" class="col-fk">FK  created_by        INT</text>
+    <text x="450" y="251" class="col">created_at        TIMESTAMP</text>
+  </g>
+
+  <g>
+    <rect class="table" x="840" y="80" width="220" height="180"/>
+    <rect class="table-header" x="840" y="80" width="220" height="26"/>
+    <text x="950" y="98" class="table-name">orders</text>
+    <text x="850" y="125" class="col-pk">PK  order_id          INT</text>
+    <text x="850" y="143" class="col-fk">FK  user_id           INT</text>
+    <text x="850" y="161" class="col">status            ENUM</text>
+    <text x="850" y="179" class="col">total_price       DECIMAL</text>
+    <text x="850" y="197" class="col">notes             TEXT</text>
+    <text x="850" y="215" class="col">created_at        TIMESTAMP</text>
+    <text x="850" y="233" class="col-fk">FK  updated_by        INT</text>
+  </g>
+
+  <g>
+    <rect class="table" x="40" y="420" width="220" height="180"/>
+    <rect class="table-header" x="40" y="420" width="220" height="26"/>
+    <text x="150" y="438" class="table-name">activity_log</text>
+    <text x="50" y="465" class="col-pk">PK  log_id            INT</text>
+    <text x="50" y="483" class="col-fk">FK  user_id           INT</text>
+    <text x="50" y="501" class="col">action            VARCHAR</text>
+    <text x="50" y="519" class="col">entity            VARCHAR</text>
+    <text x="50" y="537" class="col">entity_id         INT</text>
+    <text x="50" y="555" class="col">details           TEXT</text>
+    <text x="50" y="573" class="col">timestamp         TIMESTAMP</text>
+  </g>
+
+  <g>
+    <rect class="table" x="440" y="420" width="220" height="140"/>
+    <rect class="table-header" x="440" y="420" width="220" height="26"/>
+    <text x="550" y="438" class="table-name">order_items</text>
+    <text x="450" y="465" class="col-pk">PK  item_id           INT</text>
+    <text x="450" y="483" class="col-fk">FK  order_id          INT</text>
+    <text x="450" y="501" class="col-fk">FK  product_id        INT</text>
+    <text x="450" y="519" class="col">quantity          INT</text>
+    <text x="450" y="537" class="col">unit_price        DECIMAL</text>
+  </g>
+
+  <g>
+    <rect class="table ai-table" x="840" y="420" width="220" height="160"/>
+    <rect class="table-header" x="840" y="420" width="220" height="26" style="fill:#2E7D32"/>
+    <text x="950" y="438" class="table-name">faq_kb  (AI feature)</text>
+    <text x="850" y="465" class="col-pk">PK  faq_id            INT</text>
+    <text x="850" y="483" class="col">question          VARCHAR</text>
+    <text x="850" y="501" class="col">answer            TEXT</text>
+    <text x="850" y="519" class="col">category          VARCHAR</text>
+    <text x="850" y="537" class="col">keywords          VARCHAR</text>
+    <text x="850" y="555" class="col">created_at        TIMESTAMP</text>
+  </g>
+
+  <path class="rel" d="M 150 80 L 150 55 L 950 55 L 950 80"/>
+  <rect class="rel-label-bg" x="490" y="46" width="120" height="16"/>
+  <text x="550" y="58" class="rel-label">1 -- places -- M</text>
+
+  <path class="rel" d="M 260 200 L 350 200 L 350 233 L 440 233"/>
+  <rect class="rel-label-bg" x="305" y="208" width="100" height="16"/>
+  <text x="355" y="220" class="rel-label">1 -- creates -- M</text>
+
+  <path class="rel" d="M 150 240 L 150 420"/>
+  <rect class="rel-label-bg" x="115" y="322" width="80" height="16"/>
+  <text x="155" y="334" class="rel-label">1 -- logs -- M</text>
+
+  <path class="rel" d="M 550 260 L 550 420"/>
+  <rect class="rel-label-bg" x="525" y="332" width="60" height="16"/>
+  <text x="555" y="344" class="rel-label">1 -- in -- M</text>
+
+  <path class="rel" d="M 950 260 L 950 380 L 660 380 L 660 420"/>
+  <rect class="rel-label-bg" x="770" y="372" width="120" height="16"/>
+  <text x="830" y="384" class="rel-label">1 -- contains -- M</text>
+
+  <g transform="translate(40, 660)">
+    <rect x="0" y="0" width="1020" height="115" fill="#F4F8FC" stroke="#1F3A5F" stroke-width="1" rx="6"/>
+    <text x="15" y="22" font-family="Arial" font-size="14" font-weight="bold" fill="#1F3A5F">Legend</text>
+
+    <text x="15" y="48" font-family="Consolas" font-size="12" fill="#C77B00" font-weight="bold">PK</text>
+    <text x="55" y="48" font-family="Arial" font-size="12" fill="#222">Primary Key</text>
+
+    <text x="200" y="48" font-family="Consolas" font-size="12" fill="#2E7D32" font-weight="bold">FK</text>
+    <text x="240" y="48" font-family="Arial" font-size="12" fill="#222">Foreign Key</text>
+
+    <text x="400" y="48" font-family="Arial" font-size="12" fill="#222">1 -- M  =  one-to-many relationship</text>
+
+    <text x="15" y="75" font-family="Arial" font-size="11" fill="#222">All foreign keys use ON DELETE CASCADE or SET NULL as appropriate.  Engine: InnoDB.  Charset: utf8mb4_unicode_ci.</text>
+
+    <text x="15" y="98" font-family="Arial" font-size="11" fill="#2E7D32" font-weight="bold">Green = faq_kb table powers the AI Help Assistant (standalone -- no foreign keys).</text>
+  </g>
+</svg>

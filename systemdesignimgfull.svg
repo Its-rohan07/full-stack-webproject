@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <defs>
+    <style>
+      .tier { fill: #F4F8FC; stroke: #1F3A5F; stroke-width: 2; rx: 12; }
+      .box { fill: #FFFFFF; stroke: #2E5C8A; stroke-width: 1.5; rx: 8; }
+      .db { fill: #FFF4E5; stroke: #C77B00; stroke-width: 1.5; }
+      .label-tier { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1F3A5F; }
+      .label { font-family: Arial, sans-serif; font-size: 14px; fill: #1F3A5F; font-weight: bold; text-anchor: middle; }
+      .sublabel { font-family: Arial, sans-serif; font-size: 11px; fill: #555; text-anchor: middle; }
+      .arrow { stroke: #1F3A5F; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .arrow-label { font-family: Arial, sans-serif; font-size: 10px; fill: #444; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1F3A5F"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#1F3A5F">ShopEase — System Architecture</text>
+
+  <!-- CLIENT TIER -->
+  <rect class="tier" x="40" y="60" width="820" height="120"/>
+  <text x="60" y="85" class="label-tier">Client Tier</text>
+  <rect class="box" x="120" y="100" width="200" height="70"/>
+  <text x="220" y="125" class="label">Web Browser</text>
+  <text x="220" y="145" class="sublabel">Bootstrap 5 + JS</text>
+  <text x="220" y="160" class="sublabel">(Customer view)</text>
+
+  <rect class="box" x="370" y="100" width="200" height="70"/>
+  <text x="470" y="125" class="label">Web Browser</text>
+  <text x="470" y="145" class="sublabel">Bootstrap 5 + JS</text>
+  <text x="470" y="160" class="sublabel">(Admin view)</text>
+
+  <rect class="box" x="620" y="100" width="200" height="70"/>
+  <text x="720" y="125" class="label">Mobile Browser</text>
+  <text x="720" y="145" class="sublabel">Responsive grid</text>
+  <text x="720" y="160" class="sublabel">(Any device)</text>
+
+  <!-- Arrows: client → app -->
+  <path class="arrow" d="M 220 175 L 220 220"/>
+  <path class="arrow" d="M 470 175 L 470 220"/>
+  <path class="arrow" d="M 720 175 L 720 220"/>
+  <text x="240" y="200" class="arrow-label">HTTPS</text>
+
+  <!-- APPLICATION TIER -->
+  <rect class="tier" x="40" y="225" width="820" height="220"/>
+  <text x="60" y="250" class="label-tier">Application Tier — Apache + PHP 8</text>
+
+  <!-- Router -->
+  <rect class="box" x="340" y="265" width="220" height="50"/>
+  <text x="450" y="288" class="label">index.php (Front Controller)</text>
+  <text x="450" y="305" class="sublabel">Route map + session start</text>
+
+  <!-- Controllers -->
+  <rect class="box" x="60" y="345" width="140" height="80"/>
+  <text x="130" y="370" class="label">AuthController</text>
+  <text x="130" y="388" class="sublabel">login / register</text>
+  <text x="130" y="402" class="sublabel">CSRF + bcrypt</text>
+  <text x="130" y="416" class="sublabel">session regen</text>
+
+  <rect class="box" x="220" y="345" width="140" height="80"/>
+  <text x="290" y="370" class="label">ProductController</text>
+  <text x="290" y="388" class="sublabel">catalogue + CRUD</text>
+  <text x="290" y="402" class="sublabel">search / filter</text>
+  <text x="290" y="416" class="sublabel">pagination</text>
+
+  <rect class="box" x="380" y="345" width="140" height="80"/>
+  <text x="450" y="370" class="label">OrderController</text>
+  <text x="450" y="388" class="sublabel">place / track</text>
+  <text x="450" y="402" class="sublabel">status workflow</text>
+  <text x="450" y="416" class="sublabel">stock decrement</text>
+
+  <rect class="box" x="540" y="345" width="140" height="80"/>
+  <text x="610" y="370" class="label">AdminController</text>
+  <text x="610" y="388" class="sublabel">dashboard</text>
+  <text x="610" y="402" class="sublabel">users / logs</text>
+  <text x="610" y="416" class="sublabel">FAQ mgmt</text>
+
+  <rect class="box" x="700" y="345" width="140" height="80" style="fill:#E8F5E9; stroke:#2E7D32"/>
+  <text x="770" y="370" class="label" style="fill:#2E7D32">AiController</text>
+  <text x="770" y="388" class="sublabel">FAQ search</text>
+  <text x="770" y="402" class="sublabel">keyword scoring</text>
+  <text x="770" y="416" class="sublabel">activity log</text>
+
+  <!-- Router → Controllers arrows -->
+  <path class="arrow" d="M 450 315 L 450 340"/>
+  <path d="M 380 325 L 130 345" stroke="#1F3A5F" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+  <path d="M 415 325 L 290 345" stroke="#1F3A5F" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+  <path d="M 485 325 L 610 345" stroke="#1F3A5F" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+  <path d="M 520 325 L 770 345" stroke="#1F3A5F" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+
+  <!-- Arrow app → DB -->
+  <path class="arrow" d="M 450 440 L 450 485"/>
+  <text x="470" y="465" class="arrow-label">PDO (prepared)</text>
+
+  <!-- DATA TIER -->
+  <rect class="tier" x="40" y="490" width="820" height="100"/>
+  <text x="60" y="515" class="label-tier">Data Tier — MySQL 8</text>
+
+  <rect class="box db" x="80" y="525" width="120" height="50"/>
+  <text x="140" y="555" class="label">users</text>
+
+  <rect class="box db" x="210" y="525" width="120" height="50"/>
+  <text x="270" y="555" class="label">products</text>
+
+  <rect class="box db" x="340" y="525" width="120" height="50"/>
+  <text x="400" y="555" class="label">orders</text>
+
+  <rect class="box db" x="470" y="525" width="120" height="50"/>
+  <text x="530" y="555" class="label">order_items</text>
+
+  <rect class="box db" x="600" y="525" width="120" height="50"/>
+  <text x="660" y="555" class="label">activity_log</text>
+
+  <rect class="box db" x="730" y="525" width="120" height="50" style="fill:#E8F5E9; stroke:#2E7D32"/>
+  <text x="790" y="555" class="label" style="fill:#2E7D32">faq_kb</text>
+</svg>
