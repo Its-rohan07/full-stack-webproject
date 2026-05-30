@@ -1,1 +1,138 @@
+<?php
+// index.php — Front Controller / Router
+// ShopEase | ICT203 Assessment 3
+
+session_start();
+
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/app/controllers/AuthController.php';
+require_once __DIR__ . '/app/controllers/ProductController.php';
+require_once __DIR__ . '/app/controllers/OrderController.php';
+require_once __DIR__ . '/app/controllers/AdminController.php';
+require_once __DIR__ . '/app/controllers/AiController.php';
+
+// Simple router — parse URL path
+$request = $_SERVER['REQUEST_URI'];
+$basePath = '/shopease'; // Change if not in /shopease subdirectory
+$path = str_replace($basePath, '', parse_url($request, PHP_URL_PATH));
+$path = trim($path, '/');
+$method = $_SERVER['REQUEST_METHOD'];
+
+// Route map
+switch (true) {
+
+    // --- AUTH ---
+    case $path === '' || $path === 'home':
+        require 'app/views/home.php';
+        break;
+
+    case $path === 'login':
+        $ctrl = new AuthController();
+        $method === 'POST' ? $ctrl->login() : $ctrl->showLogin();
+        break;
+
+    case $path === 'register':
+        $ctrl = new AuthController();
+        $method === 'POST' ? $ctrl->register() : $ctrl->showRegister();
+        break;
+
+    case $path === 'logout':
+        $ctrl = new AuthController();
+        $ctrl->logout();
+        break;
+
+    // --- PRODUCTS ---
+    case $path === 'products':
+        $ctrl = new ProductController();
+        $ctrl->index();
+        break;
+
+    case $path === 'products/create':
+        $ctrl = new ProductController();
+        $method === 'POST' ? $ctrl->store() : $ctrl->create();
+        break;
+
+    case preg_match('/^products\/(\d+)\/edit$/', $path, $m) === 1:
+        $ctrl = new ProductController();
+        $method === 'POST' ? $ctrl->update($m[1]) : $ctrl->edit($m[1]);
+        break;
+
+    case preg_match('/^products\/(\d+)\/delete$/', $path, $m) === 1:
+        $ctrl = new ProductController();
+        $ctrl->delete($m[1]);
+        break;
+
+    case preg_match('/^products\/(\d+)$/', $path, $m) === 1:
+        $ctrl = new ProductController();
+        $ctrl->show($m[1]);
+        break;
+
+    // --- ORDERS ---
+    case $path === 'orders':
+        $ctrl = new OrderController();
+        $ctrl->index();
+        break;
+
+    case $path === 'orders/create':
+        $ctrl = new OrderController();
+        $method === 'POST' ? $ctrl->store() : $ctrl->create();
+        break;
+
+    case preg_match('/^orders\/(\d+)$/', $path, $m) === 1:
+        $ctrl = new OrderController();
+        $ctrl->show($m[1]);
+        break;
+
+    case preg_match('/^orders\/(\d+)\/status$/', $path, $m) === 1:
+        $ctrl = new OrderController();
+        $ctrl->updateStatus($m[1]);
+        break;
+
+    case preg_match('/^orders\/(\d+)\/cancel$/', $path, $m) === 1:
+        $ctrl = new OrderController();
+        $ctrl->cancel($m[1]);
+        break;
+
+    // --- ADMIN ---
+    case $path === 'admin':
+        $ctrl = new AdminController();
+        $ctrl->dashboard();
+        break;
+
+    case $path === 'admin/users':
+        $ctrl = new AdminController();
+        $ctrl->users();
+        break;
+
+    case $path === 'admin/logs':
+        $ctrl = new AdminController();
+        $ctrl->logs();
+        break;
+
+    case $path === 'admin/faq':
+        $ctrl = new AdminController();
+        $method === 'POST' ? $ctrl->storeFaq() : $ctrl->faq();
+        break;
+
+    case preg_match('/^admin\/faq\/(\d+)\/delete$/', $path, $m) === 1:
+        $ctrl = new AdminController();
+        $ctrl->deleteFaq($m[1]);
+        break;
+
+    // --- AI HELP ---
+    case $path === 'help':
+        require 'app/views/help/index.php';
+        break;
+
+    case $path === 'api/help':
+        $ctrl = new AiController();
+        $ctrl->search();
+        break;
+
+    // --- 404 ---
+    default:
+        http_response_code(404);
+        require 'app/views/404.php';
+        break;
+}
 
